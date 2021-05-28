@@ -96,7 +96,7 @@ template <typename T>
 void BST<T>::clear() {
     if (root) {
         delTree(root);
-        root - nullptr;
+        root = nullptr;
     }
 }
 
