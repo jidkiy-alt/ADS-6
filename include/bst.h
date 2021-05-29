@@ -29,10 +29,7 @@ template <typename T>
 BST<T>::BST():root(nullptr) {}
 
 template <typename T>
-BST<T>::~BST() {
-    if (root)
-        delTree(root);
-}
+BST<T>::~BST() {}
 
 template <typename T>
 typename BST<T>::Node* BST<T>::addNode(Node* root, T value) {
@@ -57,7 +54,7 @@ void BST<T>::add(T value) {
 }
 
 template <typename T>
-int depthTree(Node* root) {
+int BST<T>::depthTree(Node* root) {
     if (root == nullptr)
         return;
     int leftH = depthTree(root->left);
@@ -66,12 +63,12 @@ int depthTree(Node* root) {
 }
 
 template <typename T>
-int depth() {
+int BST<T>::depth() {
     return depthTree(root);
 }
 
 template <typename T>
-int searchNode(Node* root, T value) {
+int BST<T>::searchNode(Node* root, T value) {
     if (root == nullptr)
         return 0;
     else if (root->value == value)
@@ -82,7 +79,7 @@ int searchNode(Node* root, T value) {
 }
 
 template <typename T>
-int search(T value) {
+int BST<T>::search(T value) {
     return searchNode(root, value);
 }
 
