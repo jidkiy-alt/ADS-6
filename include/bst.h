@@ -56,7 +56,7 @@ void BST<T>::add(T value) {
 template <typename T>
 int BST<T>::depthTree(Node* root) {
     if (root == nullptr)
-        return;
+        return 0;
     int leftH = depthTree(root->left);
     int rightH = depthTree(root->right);
     return ((leftH > rightH) ? leftH : rightH) + 1;
