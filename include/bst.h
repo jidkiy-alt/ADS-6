@@ -64,7 +64,7 @@ int BST<T>::depthTree(Node* root) {
 
 template <typename T>
 int BST<T>::depth() {
-    return depthTree(root);
+    return depthTree(root) - 1;
 }
 
 template <typename T>
@@ -75,7 +75,7 @@ int BST<T>::searchNode(Node* root, T value) {
         return root->count;
     else if (root->value > value)
         return (searchNode(root->left, value));
-    else 
+    else
         return (searchNode(root->right, value));
 }
 
