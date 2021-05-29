@@ -4,7 +4,6 @@
 
 template <typename T>
 class BST {
-
  public:
     struct Node {
         T value;
@@ -15,22 +14,16 @@ class BST {
 
  private:
     Node* root;
-    Node* addNode(Node*, T);
-    int depthTree(Node*);
-    int searchNode(Node*, T);
-    void delTree(Node*);
-    void printTree(Node*);
-    Node* delNode(Node*, int);
+    Node* addNode(Node* root, T value);
+    int depthTree(Node* root);
+    int searchNode(Node* root, T value);
 
  public:
     BST();
     ~BST();
-    void add(T);
+    void add(T value);
     int depth();
-    int search(T);
-    void print();
-    void clear();
-    void remove(int);
+    int search(T value);
 };
 template <typename T>
 BST<T>::BST():root(nullptr) {}
@@ -48,105 +41,19 @@ typename BST<T>::Node* BST<T>::addNode(Node* root, T value) {
         root->value = value;
         root->count = 1;
         root->left = root->right = nullptr;
-    }
-    else if (root->value > value) {
+    } else if (root->value > value) {
         root->left = addNode(root->left, value);
-    }
-    else if (root->value < value) {
+    } else if (root->value < value) {
         root->right = addNode(root->right, value);
-    }
-    else
+    } else {
         root->count++;
+    }
     return root;
 }
 
 template <typename T>
 void BST<T>::add(T value) {
     root = addNode(root, value);
-}
-
-template <typename T>
-void BST<T>::printTree(Node* root) {
-    if (root == nullptr)
-        return;
-    printTree(root->left);
-    for (int i = 0; i < root->count; i++)
-        std::cout << root->value << " ";
-    printTree(root->right);
-}
-
-template <typename T>
-void BST<T>::print() {
-    printTree(root);
-}
-
-template <typename T>
-void BST<T>::delTree (Node* root) {
-    if (root == nullptr) {
-        return;
-    }
-    else {
-        delTree(root->left);
-        delTree(root->right);
-        delete root;
-    }
-}
-
-template <typename T>
-void BST<T>::clear() {
-    if (root) {
-        delTree(root);
-        root = nullptr;
-    }
-}
-
-template <typename T>
-void BST<T> ::remove(int value) {
-    if (root)
-        root = delNode(root, value);
-}
-
-template <typename T>
-typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value) {
-    Node* p, * v;
-    if (root == nullptr)
-        return root;
-    else if (value < root->value)
-        root->left = delNode(root->left, value);
-    else if (value > root->value)
-        root->right = delNode(root->right, value);
-    else {
-        p = root;
-        if (root->right == nullptr)
-            root = root->left;
-        else if (root->left == nullptr)
-            root = root->right;
-        else {
-            v = root->left;
-            if (v->right) {
-                while (v->right->right)
-                    v = v->right;
-                root->value = v->right->value;
-                root->count = v->right->count;
-                p = v->right;
-                v->right = v->right->left;
-            }
-            else {
-                root->value = v->value;
-                root->count = v->count;
-                p = v;
-                root->left = root->left->left;
-            }
-        }
-        delete p;
-    }
-    return root;
-}
-
-template <typename T>
-void BST<T>::remove(int value) {
-    if (root)
-        root = delNode(root, value);
 }
 
 template <typename T>
@@ -160,23 +67,23 @@ int depthTree(Node* root) {
 
 template <typename T>
 int depth() {
-    return depthTree(root) - 1;
+    return depthTree(root);
 }
 
 template <typename T>
-int searchNode(Node* root, T v) {
+int searchNode(Node* root, T value) {
     if (root == nullptr)
         return 0;
-    else if (root->value == v)
+    else if (root->value == value)
         return root->count;
-    else if (root->value > v)
-        return (searchNode(root->left, v));
-    else return (searchNode(root->right, v));
+    else if (root->value > value)
+        return (searchNode(root->left, value));
+    else return (searchNode(root->right, value));
 }
 
 template <typename T>
-int search(T v) {
-    return searchNode(root, v);
+int search(T value) {
+    return searchNode(root, value);
 }
 
 #endif  // INCLUDE_BST_H_
