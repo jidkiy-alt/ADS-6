@@ -13,7 +13,7 @@ BST<std::string> makeTree(const char* filename) {
 
     if (!file) {
         std::cout << "File error!" << std::endl;
-        return;
+        return 0;
     }
 
     while (!file.eof()) {
@@ -21,7 +21,7 @@ BST<std::string> makeTree(const char* filename) {
 
         if (ch >= 'A' && ch <= 'z') {
             if (ch >= 'a' && ch <= 'z') {
-                ch + 26;
+                ch += 'a' - 'A';
             }
             word += ch;
         } else if (!word.empty()) {
