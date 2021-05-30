@@ -8,7 +8,6 @@
 BST<std::string> makeTree(const char* filename) {
     BST<std::string> tree;
     std::string word;
-    char ch2ch;
 
     std::ifstream file(filename);
 
@@ -18,14 +17,13 @@ BST<std::string> makeTree(const char* filename) {
     }
 
     while (!file.eof()) {
-        int ch = file.get();
-        ch2ch = static_cast<char>(ch);
+        char ch = file.get();
 
-        if (ch >= 'A' && ch <= 'z') {
-            if (ch >= 'a' && ch <= 'z') {
-                ch2ch += 'a' - 'A';
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
+            if (ch >= 'A' && ch <= 'Z') {
+                ch += 'a' - 'A';
             }
-            word += ch2ch;
+            word += ch;
         } else if (!word.empty()) {
             tree.add(word);
             word = "";
